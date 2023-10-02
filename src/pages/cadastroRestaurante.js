@@ -7,6 +7,12 @@ import Col from 'react-bootstrap/Col';
 import '../css/crestaurant.css';
 import '../css/index.css';
 import React,{Component} from 'react';
+import axios from "axios";
+
+const  api = axios.create({
+    baseURL: "COLOCAR O ENDPOINT"
+})
+
 
 export default class Restaurant extends Component {
     
@@ -32,8 +38,20 @@ export default class Restaurant extends Component {
             })
         }
 
-        submitForm(){
-                alert(JSON.stringify(this.state));
+        
+        submitForm(e) {
+            e.preventDefault();
+            console.log('teste erro a') ;   
+            //alert(JSON.stringify(this.state));
+            
+            try {
+                api.post('restaurante/', this.state).then(res => {
+                    //console.log(res.data);
+                })
+            }catch{
+                console.log('teste erro') ;   
+            }
+            
         }
 
     render(){
