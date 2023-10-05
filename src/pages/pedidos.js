@@ -39,7 +39,7 @@ export default class Restaurant extends Component {
             }
 
 
-        axios.get(constants.URI_CADASTRO_PRATO)
+        axios.get(constants.URI_REALIZAR_PEDIDO_PRATOS, { headers })
         .then(res => {
             
             this.setState({ pedido:  res.data.items });
@@ -54,18 +54,18 @@ export default class Restaurant extends Component {
         //alert(JSON.stringify(this.state.pedido[e.target.value].id));
         
         const novoObjetoJSON = {
-            "idPrato": this.state.pedido[e.target.value].id+"",
-            "idUsuario": idUsuarioCorrente,
-            "dataPedido": format(new Date(), 'dd/MM/yyyy HH:mm:ss')+" teste"
+            "id_prato": this.state.pedido[e.target.value].id+"",
+            "id_user": idUsuarioCorrente,
+            "data": format(new Date(), 'dd/MM/yyyy HH:mm:ss')+" teste"
           };
 
-          alert(JSON.stringify(novoObjetoJSON));  
+          //alert(JSON.stringify(novoObjetoJSON));  
 
           axios.post(apiUrlOrder, novoObjetoJSON, { headers })
             .then((response) => {
                 console.log('Resposta da solicitação POST:', response.data);
-                alert('Registro inserido com sucesso');
-                
+                alert('Pedido realizado com sucesso!\n\nNúmero do pedido: '+response.data.idPedido+'. \n\n Aguarde aprovação do restaurante.');
+                //alert(JSON.stringify(response.data.idPedido));  
                 window.location.href = "/home";
             })
             .catch((error) => {
@@ -81,33 +81,36 @@ export default class Restaurant extends Component {
         <Container>
             <Row>
                 <Col md={{ span: 12, offset: 0 }}>
+                        <center>
                     {this.state.pedido.map((pedido,index) =>{
                         
                             return (
                                 <Row>
                                 <Row>
                                     <Col md={{ span: 3, offset: 0 }}>
-                                        <Card style={{ width: '30rem' }}>
+                                        <Card style={{ width: '100rem' }}>
 
                                             <Card.Body>
-                                                <Card.Title className="tile-card">{pedido.nome}</Card.Title>
+                                                <Card.Title className="tile-card">{pedido.restaurante}</Card.Title>
+                                                
                                                 <Card.Text className="card-text">
-                                                    {pedido.descricaoPedido}
+                                                    <strong>{pedido.nome}</strong>
                                                 </Card.Text>
+                                                
                                                 <Row className="details-card-restaurant">
                                                     <Col md={{ span: 6, offset: 0 }}>
                                                         <Card.Text as={Col} className="card-text details-card">
-                                                            <strong>{pedido.descricao}</strong>
+                                                        <center>{pedido.descricao}</center>
                                                         </Card.Text>
                                                     </Col>
                                                     <Col md={{ span: 6, offset: 0 }}>
                                                         <Card.Text as={Col} className="card-text">
-                                                            <strong>{pedido.tempoparapreparo}</strong>
+                                                            <strong>{pedido.tempoparapreparo} minutos</strong>
                                                         </Card.Text>
                                                     </Col>
                                                 </Row>
                                                 <Card.Text as={Col} className="price">
-                                                    {pedido.preco}
+                                                    R${pedido.preco}
                                                 </Card.Text>
                                                 <Button variant="danger" className="btn-danger-pedido" value={index} onClick={this.submitPedido.bind(this)}>Fazer Pedido</Button>
                                             </Card.Body>
@@ -124,6 +127,7 @@ export default class Restaurant extends Component {
                             )
                         } 
                     )}
+                    </center>
                 </Col>
             </Row>
         </Container>

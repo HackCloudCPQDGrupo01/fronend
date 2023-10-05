@@ -22,7 +22,7 @@ export default class Food extends Component {
                 nome: '',
                 descricao: '',
                 restaurante:'',
-                tempoParaPreparo:'',
+                tempoparapreparo:'',
                 acompanhamento:'',
                 preco:'',
                 url:'',
@@ -86,11 +86,17 @@ export default class Food extends Component {
                             <Form.Label className="details-form">Restaurante</Form.Label>
                             <Form.Control  as="select"  className="font-forms select-forms" placeholder="Informe o endereço" value={this.state.restaurante} onChange={this.changeField.bind(this,'restaurante')} >
                                 <option key="" value="">Selecione</option>
-                                {this.state.restaurantes.map((data) => (
+                                {this.state.restaurantes.map((data) => {
+                                    if (data.id == localStorage.getItem('idLoggedUser')) {
+                                    return (
+                                    
                                     <option key={data.id} value={data.id}>
                                     {data.nome}
                                     </option>
-                                ))}
+                               );
+                            }
+                            return null; // Ignora outras opções
+                          })}
                                 
                             </Form.Control>
                         </Form.Group>
@@ -102,7 +108,7 @@ export default class Food extends Component {
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridtempoParaPreparo">
                             <Form.Label className="details-form">Tempo para preparo</Form.Label>
-                            <Form.Control  className="font-forms" placeholder="Informe o tempo medio para preparar o pedido" value={this.state.tempoParaPreparo} onChange={this.changeField.bind(this,'tempoParaPreparo')} />
+                            <Form.Control  className="font-forms" placeholder="Informe o tempo medio para preparar o pedido" value={this.state.tempoparapreparo} onChange={this.changeField.bind(this,'tempoparapreparo')} />
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridAcompanhamento">

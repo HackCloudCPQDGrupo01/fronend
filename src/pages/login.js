@@ -9,17 +9,35 @@ import '../css/index.css';
 import '../css/login.css';
 import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom';
+import * as constants from './constants';
+import axios from "axios";
+
+
+const username = constants.USUARIO_REST_OIC;
+const password = constants.PASSWORD_REST_OIC;
+const basicAuth = btoa(`${username}:${password}`);
+
+const headers = {
+        
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Authorization': `Basic ${basicAuth}`,
+  };
+
 
 export default class Login extends Component {
+
+    
 
     constructor(props){
         super(props);
             this.state ={
-                email: '',
+                login: '',
                 password: '',
                 redirect: false,
                 tipo: ''
             }
+
             localStorage.setItem('isLoggedIn', 'false');
             localStorage.setItem('logginType', '');
             localStorage.setItem('idLoggedUser', '');
@@ -35,31 +53,65 @@ export default class Login extends Component {
             })
         }
 
+        registraLogin(idUser, tipo){
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('logginType', tipo);
+            localStorage.setItem('idLoggedUser', idUser);
+        }
+
+        realizaLogin(uri){
+            const novoObjetoJSON = {
+                "login": this.state.login,
+                "password": this.state.password
+              };
+    
+
+            axios.post(uri, novoObjetoJSON, { headers })
+            .then((response) => {
+                
+                if (response.data.result=='Success'){
+                    alert('Login realizado com sucesso!');
+                    this.registraLogin(response.data.idUser,this.state.tipo);
+                    window.location.href = "/home";
+                }else{
+                    alert('Falha ao realizar o login!')    
+                }
+                
+            })
+            .catch((error) => {
+                alert('Falha ao realizar o login!')
+            });  
+        }
+
         submitForm(e){
 
-            //alert(JSON.stringify(this.state.tipo));
+            e.preventDefault();
+
+            //alert(JSON.stringify(this.state));
             //alert(this.state.tipo);
 
-            if (this.state.tipo == ''){
-
-            } else if (this.state.tipo == ''){
-
-            }
-
-            
+            if (this.state.tipo == 'RESTAURANTE'){
+                this.realizaLogin(constants.URI_LOGIN_RESTAURANTE);
+                    
 
 
-            if(this.state.password == '12345'){
+            } else if (this.state.tipo == 'CLIENTE'){
+                this.realizaLogin(constants.URI_LOGIN_USUARIO);
 
-                localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('logginType', this.state.tipo);
-                localStorage.setItem('idLoggedUser', '2');
-                
-                this.setState(prevState => {
-                    let nextState = Object.assign({},prevState);
-                    nextState.redirect = true;
-                    return nextState;
-                })
+            } else if (this.state.tipo == 'ADMINISTRADOR'){
+
+                if(this.state.password == '12345'){
+
+                    this.registraLogin('2',this.state.tipo);
+                    
+                    this.setState(prevState => {
+                        let nextState = Object.assign({},prevState);
+                        nextState.redirect = true;
+                        return nextState;
+                    })
+                }else{
+                    alert('Falha ao realizar o login!');
+                }
             }
         }
     
@@ -75,10 +127,10 @@ render(){
                         <Image className="image-details" src="https://objectstorage.sa-saopaulo-1.oraclecloud.com/p/31IdzhZcCLEo3ydugFKdlSllHz0icpJA2WYaSS4K1RrblJpQv63k9LC2W_AJPh7J/n/gro465m12zbx/b/bucket-20231005-0813/o/testelogo.png" rounded />
                         <Form onSubmit={this.submitForm.bind(this)}>
                                 <Form.Group controlId="formBasicEmail">
-                                    <Form.Label className="details-form" >Email</Form.Label>
-                                    <Form.Control type="email" className="font-forms" placeholder="Informe o email" value={this.state.email} onChange={this.changeField.bind(this,'email')}/>
+                                    <Form.Label className="details-form" >Login</Form.Label>
+                                    <Form.Control type="text" className="font-forms" placeholder="Informe o login" value={this.state.login} onChange={this.changeField.bind(this,'login')}/>
                                         <Form.Text className="text-muted">
-                                            Informe seu e-mail pessoal
+                                            Informe o login 
                                         </Form.Text>
                                 </Form.Group>
                                 <Form.Group controlId="formBasicPassword">
@@ -94,6 +146,7 @@ render(){
                                         <option>Selecione</option>
                                         <option key="RESTAURANTE" value="RESTAURANTE">Restaurante</option>
                                         <option key="CLIENTE" value="CLIENTE">Cliente</option>
+                                        <option key="ADMINISTRADOR" value="ADMINISTRADOR">Administrador</option>
                                 
                                     </Form.Control>
                                 </Form.Group>    

@@ -7,6 +7,8 @@ import Restaurant from '../pages/cadastroRestaurante.js';
 import Prato from '../pages/cadastroPratro.js';
 import Pedido from '../pages/pedidos.js';
 import Exemplo from '../pages/exemplo.js';
+import ListaPedidosDoCliente from '../pages/listapedidosdocliente.js'
+import ListaPedidosDoRestaurante from '../pages/listapedidosdorestaurante.js'
 
 export default function Routes(){
     return(
@@ -19,6 +21,8 @@ export default function Routes(){
             <Route path='/exemplo' exact  component={Exemplo}/>
             <Route path='/cusuario' exact  component={User}/> 
             <Route path='/fpedido' exact  component={Pedido}/>
+            <Route path='/listapedidosdocliente' exact  component={ListaPedidosDoCliente}/>
+            <Route path='/listapedidosdorestaurante' exact  component={ListaPedidosDoRestaurante}/>
         </BrowserRouter>
     )
 }

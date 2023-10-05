@@ -66,8 +66,8 @@ export default class User extends Component {
                         </Form.Row>
 
                         <Form.Group controlId="formGridNome">
-                            <Form.Label className="details-form">Nome Completo</Form.Label>
-                            <Form.Control  className="font-forms" placeholder="Informe o nome e o sobrenome" value={this.state.nome} onChange={this.changeField.bind(this,'nome')} />
+                            <Form.Label className="details-form">Nome / Login</Form.Label>
+                            <Form.Control  className="font-forms" placeholder="Informe o login" value={this.state.nome} onChange={this.changeField.bind(this,'nome')} />
                         </Form.Group>
 
                         <Form.Group controlId="formGridendereco">

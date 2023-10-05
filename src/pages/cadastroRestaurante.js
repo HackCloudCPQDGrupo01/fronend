@@ -61,8 +61,8 @@ export default class Restaurant extends Component {
                     <Form onSubmit={this.submitForm.bind(this)}>
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridNome">
-                            <Form.Label className="details-form">Nome</Form.Label>
-                            <Form.Control  className="font-forms" type="text" placeholder="Informe o nome do restaurante" value={this.state.nome} onChange={this.changeField.bind(this,'nome')} />
+                            <Form.Label className="details-form">Nome / Login</Form.Label>
+                            <Form.Control  className="font-forms" type="text" placeholder="Informe o nome do restaurante que também é o Login" value={this.state.nome} onChange={this.changeField.bind(this,'nome')} />
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridPassword">
