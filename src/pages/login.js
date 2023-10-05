@@ -17,8 +17,13 @@ export default class Login extends Component {
             this.state ={
                 email: '',
                 password: '',
-                redirect: false
+                redirect: false,
+                tipo: ''
             }
+            localStorage.setItem('isLoggedIn', 'false');
+            localStorage.setItem('logginType', '');
+            localStorage.setItem('idLoggedUser', '');
+            
         }
 
         changeField(field,event){
@@ -30,8 +35,26 @@ export default class Login extends Component {
             })
         }
 
-        submitForm(){
+        submitForm(e){
+
+            //alert(JSON.stringify(this.state.tipo));
+            //alert(this.state.tipo);
+
+            if (this.state.tipo == ''){
+
+            } else if (this.state.tipo == ''){
+
+            }
+
+            
+
+
             if(this.state.password == '12345'){
+
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('logginType', this.state.tipo);
+                localStorage.setItem('idLoggedUser', '2');
+                
                 this.setState(prevState => {
                     let nextState = Object.assign({},prevState);
                     nextState.redirect = true;
@@ -49,7 +72,7 @@ render(){
                 <Container>
                     <Row>
                         <Col md={{ span: 4, offset: 4 }}>
-                        <Image className="image-details" src="https://objectstorage.sa-saopaulo-1.oraclecloud.com/p/GTS7vp0dHcafTrseQSbRohqhBsOpSQ0VW9hnsCkEPWC3K4S0LcmqLBJqtrnz9Xg1/n/oraclemetodista/b/bucket-teste/o/logoLogoComida.jpeg" rounded />
+                        <Image className="image-details" src="https://objectstorage.sa-saopaulo-1.oraclecloud.com/p/31IdzhZcCLEo3ydugFKdlSllHz0icpJA2WYaSS4K1RrblJpQv63k9LC2W_AJPh7J/n/gro465m12zbx/b/bucket-20231005-0813/o/testelogo.png" rounded />
                         <Form onSubmit={this.submitForm.bind(this)}>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label className="details-form" >Email</Form.Label>
@@ -62,6 +85,18 @@ render(){
                                     <Form.Label className="details-form">Password</Form.Label>
                                     <Form.Control type="password" className="font-forms" placeholder="Password"  value={this.state.password} onChange={this.changeField.bind(this,'password')}/>
                                 </Form.Group>
+
+                                
+                                
+                                <Form.Group controlId="formBasicType">
+                                <Form.Label className="details-form">Tipo de Login</Form.Label>
+                                    <Form.Control  as="select"  className="font-forms select-forms" placeholder="Informe o endereço" value={this.state.tipo} onChange={this.changeField.bind(this,'tipo')} >
+                                        <option>Selecione</option>
+                                        <option key="RESTAURANTE" value="RESTAURANTE">Restaurante</option>
+                                        <option key="CLIENTE" value="CLIENTE">Cliente</option>
+                                
+                                    </Form.Control>
+                                </Form.Group>    
                                 <Button variant="danger" type="submit">
                                     Login
                                 </Button>

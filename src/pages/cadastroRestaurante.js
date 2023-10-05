@@ -8,10 +8,9 @@ import '../css/crestaurant.css';
 import '../css/index.css';
 import React,{Component} from 'react';
 import axios from "axios";
+import * as constants from './constants';
 
-const  api = axios.create({
-    baseURL: "COLOCAR O ENDPOINT"
-})
+
 
 
 export default class Restaurant extends Component {
@@ -41,16 +40,14 @@ export default class Restaurant extends Component {
         
         submitForm(e) {
             e.preventDefault();
-            console.log('teste erro a') ;   
             //alert(JSON.stringify(this.state));
-            
-            try {
-                api.post('restaurante/', this.state).then(res => {
-                    //console.log(res.data);
-                })
-            }catch{
-                console.log('teste erro') ;   
-            }
+
+            const response = axios.post(constants.URI_CADASTRO_RESTAURANTE, this.state).then(res => {
+                alert('Registro inserido com sucesso');
+                console.log(res.data);
+                window.location.href = "/home";
+            });
+
             
         }
 

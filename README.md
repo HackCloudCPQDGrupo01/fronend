@@ -1,4 +1,4 @@
-#    /* "start": "react-scripts start", */
+#    /*  */
 #    "start": "react-scripts --openssl-legacy-provider start",  
 # Getting Started with Create React App
 

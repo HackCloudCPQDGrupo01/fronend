@@ -7,6 +7,8 @@ import Col from 'react-bootstrap/Col';
 import '../css/cusuario.css';
 import '../css/index.css';
 import React,{Component} from 'react';
+import axios from "axios";
+import * as constants from './constants';
 
 export default class User extends Component {
     
@@ -30,9 +32,17 @@ export default class User extends Component {
                 return nextState;
             })
         }
+        submitForm(e) {
+            e.preventDefault();
+            //alert(JSON.stringify(this.state));
 
-        submitForm(){
-                alert(JSON.stringify(this.state));
+            const response = axios.post(constants.URI_CADASTRO_USUARIO, this.state).then(res => {
+                alert('Registro inserido com sucesso');
+                console.log(res.data);
+                window.location.href = "/home";
+            });
+
+            
         }
 
     render(){

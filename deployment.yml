@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tutorialgrupo01
+spec:
+  selector:
+        matchLabels:
+          app: tutorialgrupo01-app
+  replicas: 2
+  template:
+        metadata:
+          labels:
+                app: tutorialgrupo01-app
+        spec:
+          containers:
+          - name: tutorialgrupo01-app
+            image: sa-saopaulo-1.ocir.io/gro465m12zbx/tutorialgrupo01:1.0.0
+            imagePullPolicy: Always
+            ports:
+            - containerPort: 3000
+          imagePullSecrets:
+          - name: ocirsecret
+---
+apiVersion: v1
+kind: Service   
+metadata:
+  name: tutorialgrupo01-server
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 3000
+    protocol: TCP
+    targetPort: 3000
+  selector:
+        app: tutorialgrupo01-app

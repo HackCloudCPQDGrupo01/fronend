@@ -7,9 +7,15 @@ import Col from 'react-bootstrap/Col';
 import '../css/cprato.css';
 import '../css/index.css';
 import React,{Component} from 'react';
+import axios from "axios";
+import * as constants from './constants';
+
+
 
 export default class Food extends Component {
     
+    
+
     constructor(props){
         super(props);
             this.state ={
@@ -19,8 +25,17 @@ export default class Food extends Component {
                 tempoParaPreparo:'',
                 acompanhamento:'',
                 preco:'',
-                url:''
+                url:'',
+                restaurantes: []
             }
+
+            axios.get(constants.URI_CADASTRO_RESTAURANTE)
+            .then(res => {
+             
+              this.setState({ restaurantes:  res.data.items });
+      
+            });
+
         }
 
         changeField(field,event){
@@ -32,13 +47,26 @@ export default class Food extends Component {
             })
         }
 
-        submitForm(){
-                alert(JSON.stringify(this.state));
+        submitForm(e) {
+            e.preventDefault();
+            //alert(JSON.stringify(this.state));
+
+            const response = axios.post(constants.URI_CADASTRO_PRATO, this.state).then(res => {
+                alert('Registro inserido com sucesso');
+                console.log(res.data);
+                window.location.href = "/home";
+            });
         }
+
+
+
 
     render(){
   return (
 <div className="center">
+
+
+
         <Menu/>
         <Container>
             <Row>
@@ -57,8 +85,13 @@ export default class Food extends Component {
                         <Form.Group as={Col} controlId="formGridendereco">
                             <Form.Label className="details-form">Restaurante</Form.Label>
                             <Form.Control  as="select"  className="font-forms select-forms" placeholder="Informe o endereço" value={this.state.restaurante} onChange={this.changeField.bind(this,'restaurante')} >
-                                <option>Restaurante 1</option>
-                                <option>Restaurante 2</option>
+                                <option key="" value="">Selecione</option>
+                                {this.state.restaurantes.map((data) => (
+                                    <option key={data.id} value={data.id}>
+                                    {data.nome}
+                                    </option>
+                                ))}
+                                
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridPreco">
@@ -75,7 +108,7 @@ export default class Food extends Component {
                             <Form.Group as={Col} controlId="formGridAcompanhamento">
                             <Form.Label className="details-form">Acompanhamento</Form.Label>
                             <Form.Control className="font-forms select-forms" as="select"  placeholder="Selecione o acompanhamento" value={this.state.acompanhamento} onChange={this.changeField.bind(this,'acompanhamento')}  >
-                                <option>Acompanhamento 1</option>
+                                <option value={"1"}>Acompanhamento 1</option>
                                 <option>Acompanhamento 2</option>
                             </Form.Control>
                             </Form.Group>

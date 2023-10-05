@@ -1,18 +1,17 @@
+import Image from 'react-bootstrap/Image'
 import '../css/home.css';
 import Menu from './menu.js';
+import * as constants from './constants';
 
 export default function Home() {
   return (
       <div className="center">
           <Menu/>
             <div>
-                <label className="fonte">Bem vindo ao Hack@Cloud!</label>
+           
+            <Image className="image-details" src="https://objectstorage.sa-saopaulo-1.oraclecloud.com/p/31IdzhZcCLEo3ydugFKdlSllHz0icpJA2WYaSS4K1RrblJpQv63k9LC2W_AJPh7J/n/gro465m12zbx/b/bucket-20231005-0813/o/testelogo.png" rounded />
             </div>
-                <p><a href="https://www.oracle.com/br/cloud-native/">Oracle Cloud Native</a></p>
-                <p><a href="https://discord.com/">Discord</a></p>
-                <p><a href="https://www.oracle.com/br/cloud/free/"> Oracle Free Tier</a></p>
-                <p><a href="https://videohub.oracle.com/playlist/dedicated/161711051/1_utlkexy9/1_dr1mckft"> Oracle CSM Live</a></p>
-                <p><a href="https://videohub.oracle.com/playlist/dedicated/161711051/1_kyroudpb/1_i73irubs"> Oracle CSM Live Short-Video</a></p>
+              
       </div>
   );
 }
