@@ -9,6 +9,7 @@ import Pedido from '../pages/pedidos.js';
 import Exemplo from '../pages/exemplo.js';
 import ListaPedidosDoCliente from '../pages/listapedidosdocliente.js'
 import ListaPedidosDoRestaurante from '../pages/listapedidosdorestaurante.js'
+import ListaPratos from '../pages/listapratos.js'
 
 export default function Routes(){
     return(
@@ -23,6 +24,7 @@ export default function Routes(){
             <Route path='/fpedido' exact  component={Pedido}/>
             <Route path='/listapedidosdocliente' exact  component={ListaPedidosDoCliente}/>
             <Route path='/listapedidosdorestaurante' exact  component={ListaPedidosDoRestaurante}/>
+            <Route path='/listapratos' exact  component={ListaPratos}/>
         </BrowserRouter>
     )
 }

@@ -27,33 +27,37 @@ export default function Menu() {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
               {mostrarAdministrador && (
-                <Nav.Link href="crestaurante" className="detail-menu">Cadastro Restaurante</Nav.Link>
+                <Nav.Link href="crestaurante" className="detail-menu">Cadastro Restaurante | </Nav.Link>
                 )}
               {mostrarCadastroRestaurante && (
-                <Nav.Link href="cpratos" className="detail-menu">Cadastro Pratos</Nav.Link>
+                <Nav.Link href="cpratos" className="detail-menu">Cadastro Pratos | </Nav.Link>
               )}
 
               {mostrarCadastroRestaurante && (
-              <Nav.Link href="listapedidosdorestaurante" className="detail-menu">Pedidos Recebidos</Nav.Link>
+                <Nav.Link href="listapratos" className="detail-menu">Listar Pratos Cadastrados | </Nav.Link>
+              )}
+
+              {mostrarCadastroRestaurante && (
+              <Nav.Link href="listapedidosdorestaurante" className="detail-menu">Pedidos Recebidos | </Nav.Link>
               )}              
               
 
               {mostrarCadastroCliente && (    
-                <Nav.Link href="fpedido" className="detail-menu">Fazer Pedido</Nav.Link>
+                <Nav.Link href="fpedido" className="detail-menu">Fazer Pedido | </Nav.Link>
               )}  
 
 
               {mostrarAdministrador && (
-                <Nav.Link href="cusuario" className="detail-menu">Cadastro Usuário</Nav.Link>
+                <Nav.Link href="cusuario" className="detail-menu">Cadastro Usuário | </Nav.Link>
               )}
 
               {mostrarCadastroCliente && (    
-                <Nav.Link href="listapedidosdocliente" className="detail-menu">Pedidos Realizados</Nav.Link>
+                <Nav.Link href="listapedidosdocliente" className="detail-menu">Pedidos Realizados | </Nav.Link>
                 )}  
 
             </Nav>
             <Nav>
-              <Nav.Link href="login" className="detail-menu">Sair</Nav.Link>
+              <Nav.Link href="login" className="detail-menu">SAIR</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
